@@ -1,5 +1,5 @@
 import pytest
-from algorithms import Algorithms
+from src.algorithms import Algorithms
 
 text = """Dette er en tekst som er beregnet for å søke gjennom med et gitt mønster. Mønsteret kommer under et sted. """
 tests = [
