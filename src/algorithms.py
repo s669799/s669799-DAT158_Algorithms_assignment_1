@@ -92,6 +92,30 @@ class Algorithms:
             return max (Algorithms.lcs_recursive(X, Y, n - 1, m),
                         Algorithms.lcs_recursive(X, Y, n, m - 1))
 
+
+    def longest_common_subsequence_dynamic(X:str, Y:str):
+
+        memo = [[-1 for _ in range(len(X) + 1)] for _ in range(len(Y) + 1)]
+        return Algorithms.lcs_dp(X, Y, len(X), len(Y), memo)
+
+
+    def lcs_dp(X:str, Y:str, n, m, memo):
+
+        if n == 0 or m == 0:
+            return 0
+
+        if memo[n][m] != -1:
+            return memo[n][m]
+
+        if X[n - 1] == Y[m - 1]:
+            memo[n][m] = Algorithms.lcs_dp(X, Y, n - 1, m - 1, memo) + 1
+            return memo[n][m]
+
+        elif X[n - 1] != Y[m - 1]:
+            memo[n][m] = max (Algorithms.lcs_dp(X, Y, n - 1, memo),
+                              Algorithms.lcs_dp(X, Y, n, m - 1, memo))
+            return memo[n][m]
+
 def main():
     test_cases = [
         ("AGGTAB", "GXTXAYB"),
@@ -109,6 +133,9 @@ def main():
         lcs = Algorithms.longest_common_subsequence(X, Y)
         print(f"LCS of '{X}' and '{Y}' is '{lcs}'")
 
+    for X, Y in test_cases:
+        lcs = Algorithms.longest_common_subsequence_dynamic(X, Y)
+        print(f"LCS of '{X}' and '{Y}' is '{lcs}'")
 
 if __name__ == "__main__":
     main()

@@ -58,5 +58,11 @@ def test_KMP_algorithm(text, pattern, expected):
 
 @pytest.mark.parametrize("X, Y, expected", dynamic_programming_test)
 def test_longest_common_sequence(X, Y, expected):
-    string = Algorithms.longest_common_subsequence(X, Y)
-    assert string == expected
+    length = Algorithms.longest_common_subsequence(X, Y)
+    assert length == expected
+
+
+@pytest.mark.parametrize("X, Y, expected", dynamic_programming_test)
+def test_longest_common_sequence_dynamic(X, Y, expected):
+    mem = Algorithms.longest_common_subsequence_dynamic(X, Y)
+    assert mem == expected
