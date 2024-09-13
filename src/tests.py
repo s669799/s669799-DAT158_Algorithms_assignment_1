@@ -10,6 +10,18 @@ tests = [
     (text, "not_in_text", -1)
 ]
 
+dynamic_programming_test = [
+    ("babbabab", "bbabbaaab", 7),
+    ("AGGTAB", "GXTXAYB", 4),
+    ("ABC", "AC", 2),
+    ("ABC", "DEF", 0),
+    ("XMJYAUZ", "MZJAWXU", 4),
+    ("AAB", "ABA", 2),
+    ("", "", 0),
+    ("A", "", 0),
+    ("", "B", 0)
+]
+
 @pytest.mark.parametrize("text, pattern, expected", tests)
 def test_boyer_moore_algorithm(text, pattern, expected):
     index, comparisons = Algorithms.boyer_moore_algorithm(text, pattern)
@@ -43,3 +55,8 @@ def test_KMP_algorithm(text, pattern, expected):
     print(f"Average comparisons per character: {avg_comparisons_per_char:.2f}\n")
 
     assert index == expected, f"Test failed: {text} vs {pattern}. Expected: {expected}, got: {index}"
+
+@pytest.mark.parametrize("X, Y, expected", dynamic_programming_test)
+def test_longest_common_sequence(X, Y, expected):
+    string = Algorithms.longest_common_subsequence(X, Y)
+    assert string == expected

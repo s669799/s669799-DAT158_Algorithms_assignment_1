@@ -1,6 +1,5 @@
 class Algorithms:
 
-
     @staticmethod
     def boyer_moore_algorithm(t:str, p:str):
         n = len(t)
@@ -77,3 +76,39 @@ class Algorithms:
     @staticmethod
     def average_comparisons_per_char(comparisons, text_length) -> float:
         return comparisons / text_length if text_length != 0 else 0
+
+
+    def longest_common_subsequence(X:str, Y:str):
+        return Algorithms.lcs_recursive(X, Y, len(X), len(Y))
+
+    def lcs_recursive(X:str, Y:str, n, m):
+
+        if n == 0 or m == 0:
+            return 0
+
+        if X[n - 1] == Y[m - 1]:
+            return Algorithms.lcs_recursive(X, Y, n - 1, m - 1) + 1
+        elif X[n - 1] != Y[m - 1]:
+            return max (Algorithms.lcs_recursive(X, Y, n - 1, m),
+                        Algorithms.lcs_recursive(X, Y, n, m - 1))
+
+def main():
+    test_cases = [
+        ("AGGTAB", "GXTXAYB"),
+        ("ABC", "AC"),
+        ("ABC", "DEF"),
+        ("XMJYAUZ", "MZJAWXU"),
+        ("AAB", "ABA"),
+        ("", ""),
+        ("A", ""),
+        ("", "B"),
+        ("babbaba" , "bbabbaaab"),
+        ("abcdefghijklm", "nopqrstuvwxyz")
+    ]
+    for X, Y in test_cases:
+        lcs = Algorithms.longest_common_subsequence(X, Y)
+        print(f"LCS of '{X}' and '{Y}' is '{lcs}'")
+
+
+if __name__ == "__main__":
+    main()
