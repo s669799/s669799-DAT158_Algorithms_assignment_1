@@ -95,7 +95,7 @@ class Algorithms:
 
     def longest_common_subsequence_dynamic(X:str, Y:str):
 
-        memo = [[-1 for _ in range(len(X) + 1)] for _ in range(len(Y) + 1)]
+        memo = [[-1 for _ in range(len(Y) + 1)] for _ in range(len(X) + 1)]
         return Algorithms.lcs_dp(X, Y, len(X), len(Y), memo)
 
 
@@ -112,7 +112,7 @@ class Algorithms:
             return memo[n][m]
 
         elif X[n - 1] != Y[m - 1]:
-            memo[n][m] = max (Algorithms.lcs_dp(X, Y, n - 1, memo),
+            memo[n][m] = max (Algorithms.lcs_dp(X, Y, n - 1, m, memo),
                               Algorithms.lcs_dp(X, Y, n, m - 1, memo))
             return memo[n][m]
 
@@ -127,8 +127,14 @@ def main():
         ("A", ""),
         ("", "B"),
         ("babbaba" , "bbabbaaab"),
-        ("abcdefghijklm", "nopqrstuvwxyz")
+        ("abcdefghijklm", "nopqrstuvwxyz"),
+        ("abcde", "ace"),
+        ("abcdfghij", "acdfgij"),
+        ("abcdefghij", "klmnopqrst"),
+        ("abcdefghijabcdefghij", "acegikacegik"),
+        #("a" * 10 + "b" * 10 + "c" * 10, "d" * 10 + "e" * 10+ "f" * 10) Requires dynamic version
     ]
+
     for X, Y in test_cases:
         lcs = Algorithms.longest_common_subsequence(X, Y)
         print(f"LCS of '{X}' and '{Y}' is '{lcs}'")
